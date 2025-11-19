@@ -2,7 +2,7 @@ package com.learn.chat_app.listener;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.learn.chat_app.dto.requests.ChatMessage;
+import com.learn.chat_app.model.ChatMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;

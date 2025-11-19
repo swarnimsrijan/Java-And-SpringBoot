@@ -1,4 +1,4 @@
-package com.learn.chat_app.dto.requests;
+package com.learn.chat_app.model;
 
 import com.learn.chat_app.enums.MessageType;
 import lombok.AllArgsConstructor;

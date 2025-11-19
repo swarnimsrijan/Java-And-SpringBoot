@@ -1,6 +1,6 @@
 package com.learn.chat_app.controller;
 
-import com.learn.chat_app.dto.requests.ChatMessage;
+import com.learn.chat_app.model.ChatMessage;
 import com.learn.chat_app.enums.MessageType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
