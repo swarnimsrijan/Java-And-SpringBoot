@@ -1,5 +1,6 @@
 package com.learn.chat_app.config;
 
+import com.learn.chat_app.listener.RedisMessageSubscriber;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +15,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 public class RedisConfig {
 
-    @Value("${channel.topic}")
+    @Value("${channel.topic:chat}")
     private String channelTopic;
 
     @Bean
@@ -24,6 +25,11 @@ public class RedisConfig {
         container.setConnectionFactory(redisConnectionFactory);
         container.addMessageListener(messageListenerAdapter, channelTopic());
         return container;
+    }
+
+    @Bean
+    public MessageListenerAdapter messageListenerAdapter(RedisMessageSubscriber redisMessageSubscriber){
+        return new MessageListenerAdapter(redisMessageSubscriber);
     }
 
     @Bean
