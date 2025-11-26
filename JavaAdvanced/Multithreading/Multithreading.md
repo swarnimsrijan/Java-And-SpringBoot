@@ -55,4 +55,78 @@
   - public static boolean holdsLock(Object x) : Returns true if the current thread holds the lock on the given Object.
   - public static Thread currentThread() : Returns a reference to the currently running thread, which is the thread that invokes this method.
   - public static void dumpStack() : Prints the stack trace for the currently running thread, which is useful when debugging a multithreaded application.
-  - 
+
+
+---
+# Joining Threads
+- With multiple threads running, we can block current thread until another thread terminates.
+- The join() method of the Thread class is used
+- ```void join();```
+- Overload Thread.join() Methods:
+  - join() − The current thread invokes this method on a second thread, causing the current thread to block until the second thread terminates.
+  - join(long millisec) − The current thread invokes this method on a second thread, causing the current thread to block until the second thread terminates or the specified number of milliseconds passes.
+  - join(long millisec, int nanos) − The current thread invokes this method on a second thread, causing the current thread to block until the second thread terminates or the specified number of milliseconds + nanoseconds passes.
+
+---
+# Naming a Thread
+- Name a Thread while Implementing a Runnable Interface
+  - ```Thread(Runnable threadObj, String threadName);```
+  -  threadObj is an instance of a class that implements the Runnable interface and threadName is the name given to the new thread.
+   ```
+    class RunnableDemo implements Runnable {
+        private String threadName;
+        RunnableDemo( String name) {
+            threadName = name;
+            System.out.println("Thread: " + threadName + ", " + "State: New");
+        }
+        public void run() {
+            System.out.println("Thread: " + threadName + ", " + "State: Running");
+            for(int i = 4; i > 0; i--) {
+                System.out.println("Thread: " + threadName + ", " + i);         
+            }
+            System.out.println("Thread: " + threadName + ", " + "State: Dead");
+        }
+    }
+    public class TestThread {
+        public static void main(String args[]) {
+            RunnableDemo runnableDemo1 = new RunnableDemo( "Thread-1");
+            RunnableDemo runnableDemo2 = new RunnableDemo( "Thread-2");
+    
+            Thread thread1 = new Thread(runnableDemo1);
+            Thread thread2 = new Thread(runnableDemo2);
+        
+            thread1.start();
+            thread2.start();
+        }
+    }
+  ```
+  
+- Naming a Thread while extending a Thread Class
+  - In order to name the thread, we need to call the super class Thread constructor with name.
+  ```
+    class ThreadDemo extends Thread {
+      ThreadDemo( String name) {      
+          super(name);
+          System.out.println("Thread: " + name + ", " + "State: New");
+      }
+      public void run() {
+          System.out.println("Thread: " + Thread.currentThread().getName() + ", " + "State: Running");
+          for(int i = 4; i > 0; i--) {
+              System.out.println("Thread: " + Thread.currentThread().getName() + ", " + i);
+          }
+          System.out.println("Thread: " + Thread.currentThread().getName() + ", " + "State: Dead");
+      }
+      public void start () {
+          System.out.println("Thread: " + Thread.currentThread().getName() + ", " + "State: Start");
+          super.start();
+      }
+    }
+    public class TestThread {
+      public static void main(String args[]) {
+          ThreadDemo thread1 = new ThreadDemo( "Thread-1");
+          ThreadDemo thread2 = new ThreadDemo( "Thread-2");
+          thread1.start();
+          thread2.start();
+      }
+    }
+  ```
